@@ -1,38 +1,137 @@
-.App {
-  text-align: center;
+body {
+  font-size: 14px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h5, .h5 {
+  font-size: 17.5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.datePicker {
+  visibility: hidden;
+  display: none;
+  height: 0;
+  padding: 0;
+  width: 0;
+  position: absolute;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+
+.react-datepicker-popper[data-placement^="bottom"] {
+  padding-top: 0px;
+}
+
+.custom-data-picker-container {
+  position: absolute;
+  z-index: 100;
+  top: 17px;
+}
+
+.hidden-input {
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+.search-data {
+  background: #fff;
+  border: 1px solid #cfd0d7;
+  border-radius: 3px;
+  max-height: 200px;
+  overflow: auto;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 100000000000000000;
+}
+
+.search-data-element {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.search-data-element:hover {
+  background: #fafafa;
+}
+
+label b {
+  color: #cd5c5c;
+  font-weight: bold;
+}
+
+.phone-input {
+  position: relative;
+}
+
+.phone-input::before {
+  content: "+";
+  font-size: 1.1rem;
+  left: 10px;
+  position: absolute;
+  top: 5px;
+  width: 0;
+  z-index: 1;
+}
+
+.input-phone-pagging {
+  appearance: none;
+  padding-left: 1.2rem;
+}
+
+.wrapper {
   display: flex;
-  flex-direction: column;
+  margin: 0 auto;
+  max-width: 760px;
+  min-width: 300px;
+  padding: 0 10px;
+}
+
+.wrapper-padding {
+  border-radius: 0;
+  box-shadow: none;
+  padding: 7.8125vmin 0;
+  width: 100%;
+}
+
+.title-margin{
+  margin: 25px 0;
+}
+
+.form-check-input:checked {
+  background-color: #373d48;
+  border-color: #373d48;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #373d48;
+  border-color: #373d48;
+  margin: 0 7px;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #2f343d;
+  border-color: #2c313a;
+}
+
+._9bb0 {
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  display: flex;
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
