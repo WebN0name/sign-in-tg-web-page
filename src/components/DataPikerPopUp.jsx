@@ -4,7 +4,7 @@ import DatePickerHeader from "./DatePickerHeader"
 import ru from "date-fns/esm/locale/ru/index.js"
 import CalendarIcon from "../icons/calendarIcon"
 
-export default function DataPickerPopup() {
+export default function DataPickerPopup({labelValue, descriptionValue, name, getInputData}) {
   const [isOpen, setIsOpen] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const inputRef = useRef(null)
@@ -41,9 +41,9 @@ export default function DataPickerPopup() {
   return (
     <div>
       <label for="date" class="form-label">
-        Дата рождения
+        {labelValue}
       </label>
-      <div class="input-group" style={{position: 'relative'}} onClick={() => datePickerOpen()} ref={inputRef}>
+      <div class="input-group" style={{ position: "relative" }} onClick={() => datePickerOpen()} ref={inputRef}>
         <input
           type="text"
           id="date"
@@ -52,32 +52,37 @@ export default function DataPickerPopup() {
           placeholder="__-__-____"
           value={formatDate(startDate)}
         />
-        <div class="input-group-text">
+        <span class="input-group-text">
           <CalendarIcon />
-        </div>
+        </span>
         <div className="custom-data-picker-container" ref={pickerRef}>
-        <DatePicker
-          className="datePicker"
-          selected={startDate}
-          onChange={(date) => {
-            setStartDate(date)
-            setIsOpen(false)
-          }}
-          open={isOpen}
-          locale={ru}
-          renderCustomHeader={({ date, changeYear, changeMonth, decreaseMonth, increaseMonth }) => (
-            <DatePickerHeader
-              date={date}
-              changeYear={changeYear}
-              changeMonth={changeMonth}
-              decreaseMonth={decreaseMonth}
-              increaseMonth={increaseMonth}
-            />
-          )}
-        />
+          <DatePicker
+            className="datePicker"
+            selected={startDate}
+            onChange={(date) => {
+              setStartDate(date)
+              getInputData({target: {name, value: date}})
+              setIsOpen(false)
+            }}
+            open={isOpen}
+            locale={ru}
+            fixedHeight
+            name={name}
+            renderCustomHeader={({ date, changeYear, changeMonth, decreaseMonth, increaseMonth }) => (
+              <DatePickerHeader
+                getPopupContainer={(trigger) => trigger.parentElement}
+                className="react-datepicker-wrapper"
+                date={date}
+                changeYear={changeYear}
+                changeMonth={changeMonth}
+                decreaseMonth={decreaseMonth}
+                increaseMonth={increaseMonth}
+              />
+            )}
+          />
+        </div>
       </div>
-      </div>
-      <small className="form-text">Информация заполняется по желанию</small>
+      {descriptionValue && (<small className="form-text">{descriptionValue}</small>)}
     </div>
   )
 }

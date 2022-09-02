@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from "react"
 import Fuse from "fuse.js"
 
-export default function SearchInput({ labelValue, optionsValue, descriptionValue, isRequired, placeHolder }) {
+export default function SearchInput({
+  labelValue,
+  optionsValue,
+  descriptionValue,
+  isRequired,
+  placeHolder,
+  name,
+  getInputData,
+}) {
   const [searchValue, setSearchValue] = useState("")
   const [searchResult, setSearchResult] = useState(optionsValue)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
@@ -17,7 +25,8 @@ export default function SearchInput({ labelValue, optionsValue, descriptionValue
   const fuse = new Fuse(optionsValue, options)
 
   const handleInputChange = (e) => {
-    setSearchValue(e.target.value)
+    console.log(e)
+    setSearchValue(e.target.value);
   }
 
   useEffect(() => {
@@ -28,6 +37,8 @@ export default function SearchInput({ labelValue, optionsValue, descriptionValue
       result = result.map((item) => item.item)
       setSearchResult(result)
     }
+
+    getInputData({target: {name, value: searchValue}})
   }, [searchValue])
 
   const handleFocus = () => {
@@ -49,7 +60,7 @@ export default function SearchInput({ labelValue, optionsValue, descriptionValue
     return () => {
       document.removeEventListener("click", handleClick)
     }
-  }, [isMenuVisible])
+  }, [isMenuVisible, searchValue])
 
   const chooseItem = (value) => {
     setSearchValue(value)
@@ -58,10 +69,13 @@ export default function SearchInput({ labelValue, optionsValue, descriptionValue
 
   return (
     <div>
-      <label class="form-label">{labelValue}{isRequired && (<b>*</b>)}</label>
+      <label class="form-label">
+        {labelValue}
+        {isRequired && <b>*</b>}
+      </label>
       <div style={{ position: "relative" }} ref={inputRef}>
         <input
-          name="region"
+          name={name}
           placeholder={placeHolder}
           instance="SelectField"
           class="form-control hidden-input"
@@ -76,13 +90,17 @@ export default function SearchInput({ labelValue, optionsValue, descriptionValue
         />
         <div className="search-data" style={{ display: isMenuVisible ? "block" : "none" }}>
           {searchResult.map((item) => (
-            <div className="search-data-element" onClick={() => chooseItem(item)} style={{fontWeight: searchValue === item ? '700' : '400'}}>
+            <div
+              className="search-data-element"
+              onClick={() => chooseItem(item)}
+              style={{ fontWeight: searchValue === item ? "700" : "400" }}
+            >
               {item}
             </div>
           ))}
         </div>
       </div>
-      {descriptionValue && (<small className="form-text">{descriptionValue}</small>)}
+      {descriptionValue && <small className="form-text">{descriptionValue}</small>}
     </div>
   )
 }

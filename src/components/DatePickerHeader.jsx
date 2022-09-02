@@ -61,7 +61,7 @@ export default function DatePickerHeader({ date, changeYear, changeMonth, decrea
           <select
             value={getYear(date)}
             onChange={({ target: { value } }) => changeYear(value)}
-            style={{ padding: "5px", fontSize: "11px", fontWeight: "400" }}
+            style={{ margin: "0 2px", padding: "5px", fontSize: "11px", fontWeight: "400" }}
           >
             {years.map((option) => (
               <option key={option} value={option} style={{ bottom: 0 }}>
